@@ -14,7 +14,7 @@ import java.util.Set;
 // https://developer.chrome.com/blog/custom-tabs-android-11
 public class LaunchNative {
     public boolean attempt(Context context, String url) {
-        Uri uri = Uri.parse(url);
+        var uri = Uri.parse(url);
 
         return Build.VERSION.SDK_INT >= 30 ?
                 launchNativeApi30(context, uri) :

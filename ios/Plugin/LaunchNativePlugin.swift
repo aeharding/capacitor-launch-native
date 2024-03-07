@@ -10,7 +10,12 @@ public class LaunchNativePlugin: CAPPlugin {
     @objc func attempt(_ call: CAPPluginCall) {
         let url = call.getString("url") ?? ""
 
-        let parsedUrl = URL(string: url)!
+        guard let parsedUrl = URL(string: url) else {
+            call.resolve([
+                "completed": false
+            ])
+            return
+        }
 
         DispatchQueue.main.async {
             UIApplication.shared.open(parsedUrl, options: [.universalLinksOnly: true]) { success in
