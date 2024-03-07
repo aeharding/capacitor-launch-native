@@ -12,11 +12,12 @@ public class LaunchNativePlugin extends Plugin {
     private LaunchNative implementation = new LaunchNative();
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
+    public void attempt(PluginCall call) {
+        String url = call.getString("url");
 
         JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
+        ret.put("completed", implementation.attempt(getContext(), url));
         call.resolve(ret);
     }
+
 }

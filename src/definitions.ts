@@ -1,3 +1,3 @@
 export interface LaunchNativePlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  attempt(options: { url: string }): Promise<{ completed: boolean }>;
 }

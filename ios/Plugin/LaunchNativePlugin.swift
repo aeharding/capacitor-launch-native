@@ -7,12 +7,23 @@ import Capacitor
  */
 @objc(LaunchNativePlugin)
 public class LaunchNativePlugin: CAPPlugin {
-    private let implementation = LaunchNative()
+    @objc func attempt(_ call: CAPPluginCall) {
+        let url = call.getString("url") ?? ""
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.resolve([
-            "value": implementation.echo(value)
-        ])
+        let parsedUrl = URL(string: url)!
+
+        DispatchQueue.main.async {
+            UIApplication.shared.open(parsedUrl, options: [.universalLinksOnly: true]) { success in
+                if success {
+                    call.resolve([
+                        "completed": true
+                    ])
+                } else {
+                    call.resolve([
+                        "completed": false
+                    ])
+                }
+            }
+        }
     }
 }
