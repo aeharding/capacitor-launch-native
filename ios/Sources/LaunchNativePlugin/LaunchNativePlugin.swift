@@ -6,7 +6,12 @@ import Capacitor
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(LaunchNativePlugin)
-public class LaunchNativePlugin: CAPPlugin {
+public class LaunchNativePlugin: CAPPlugin, CAPBridgedPlugin {
+    public let identifier = "LaunchNativePlugin"
+    public let jsName = "LaunchNative"
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "attempt", returnType: CAPPluginReturnPromise),
+    ]
     @objc func attempt(_ call: CAPPluginCall) {
         let url = call.getString("url") ?? ""
 
